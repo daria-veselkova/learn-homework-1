@@ -15,13 +15,33 @@
     
 """
 
-questions_and_answers = {}
+questions_and_answers = {
+  "Как дела?": "Хорошо!",
+  "Ты как?": "Да ничего, жить буду"
+  "Что делаешь?": "Программирую",
+  "Как там погода?": "Зима пришла, надевай термуху",
+  "О чем задумался?": "О вечном...",
+  "Когда наступит конец света?": "Ты все проспал, он уже был!",
+  "В чем сила, брат?": "В ньютонах",
+  "А судьи кто?": "За древностию лет...",
+  "Когла покупать доллар?": "В 2010-м, пожалуй"
+}
 
 def ask_user(answers_dict):
     """
     Замените pass на ваш код
     """
-    pass
+    while True:
+      user_question = input("Спроси меня о чем-нибудь: ").capitalize().strip()
+
+      if user_question in questions_and_answers.keys():
+        print(questions_and_answers[user_question])
+      elif user_question == "Стоп":
+        print("Пока!")
+        break
+      else:
+        print("Спроси что-нибудь другое")
+
     
 if __name__ == "__main__":
     ask_user(questions_and_answers)
