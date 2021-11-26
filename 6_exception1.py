@@ -14,14 +14,6 @@ def hello_user():
     """
     Замените pass на ваш код
     
-    try:
-        while input('Как дела? ') != 'Хорошо':
-            print('Попробуй еще раз')
-    except KeyboardInterrupt:    #но можно и просто except
-        print('\nПока!')
-
-    
-    """
     while True:
         try:
             answer = input("Как дела? ")
@@ -29,9 +21,14 @@ def hello_user():
                 break
         except KeyboardInterrupt:
             print('Пока!')
-            #break 
+            break 
+    """
+    try:
+        while input('Как дела? ') != 'Хорошо':
+            print('Попробуй еще раз')
+    except KeyboardInterrupt:    #но можно и просто except
+        print('\nПока!')
         
     
-
 if __name__ == "__main__":
     hello_user()
