@@ -16,8 +16,14 @@ ValueError - тип тот, значение не подходит
    
 """
 
-class my_ValueError(Exception):         #чтобы обрабатывать ошибку иначе, чем ValueError (использовалась в примере из лекции)
-    print("Unwanted value")
+class MyValueError(Exception):         #чтобы обрабатывать ошибку иначе, чем ValueError (использовалась в примере из лекции)
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
+
+def check_discount(discount):
+    if discount >= 100:
+            raise MyValueError
 
 
 def discounted(price, discount, max_discount=20):
@@ -26,21 +32,21 @@ def discounted(price, discount, max_discount=20):
         price = abs(float(price))
         discount = abs(float(discount))
         max_discount = abs(int(max_discount))
-    
-        if discount >= 100:
-            raise my_ValueError
         
+        check_discount(discount)
+
         if discount >= max_discount:
             return price
         else:
             return price - (price * discount / 100)
 
-    except TypeError:
+    except TypeError as e:
         return 'Incorrect type of data. Use integers, floats or strings'
     except ValueError:
         return 'Incorrect value. Use numbers, not numerics'
-    except my_ValueError:
-        return 'Too high discount'
+    except MyValueError:
+        return f'Incorrect discount: {discount} >= 100'
+    
     
 if __name__ == "__main__":
     print(discounted(100, 2))
