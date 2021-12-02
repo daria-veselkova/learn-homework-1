@@ -16,13 +16,14 @@ import logging
 import ephem
 import settings
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from datetime import date
 
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
                     filename='bot.log')
 
-
+"""
 PROXY = {
     'proxy_url': settings.PROXY_URL,
     'urllib3_proxy_kwargs': {
@@ -30,7 +31,7 @@ PROXY = {
         'password': settings.PROXY_PASSWORD
     }
   }
-
+"""
 
 def greet_user(update, context):
     print("Вызван /start")
@@ -50,7 +51,7 @@ def planet_constellation(update, context):
     
     body_class = getattr(ephem, user_body, None)
     if body_class:
-        body = body_class('2021/11/26')                                 
+        body = body_class(date.today())                                 
         constellation = ephem.constellation(body)
         update.message.reply_text(constellation)
     else:
@@ -58,7 +59,7 @@ def planet_constellation(update, context):
 
 
 def main():
-    mybot = Updater(settings.API_KEY, request_kwargs=PROXY, use_context=True)
+    mybot = Updater(settings.API_KEY, use_context=True) #request_kwargs=PROXY)
 
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
